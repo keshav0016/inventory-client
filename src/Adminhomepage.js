@@ -4,22 +4,38 @@ import materialize from 'materialize-css';
 import {
   BrowserRouter as Router,
   Route,
-  Link
+  Link,
+  Redirect
 } from 'react-router-dom';
+import EmployeesList from './Employees';
 // import $ from 'jquery';
 
 class Adminhomepage extends Component {
-  componentDidMount() {
+  constructor(props){
+    super(props)
+    this.state = {
+      employee: false
+    }
+   
+    this.handleEmployee = this.handleEmployee.bind(this)
+    
+ 
+  }
+  componentDidMount(){
     /* global $ */
     setTimeout(()=>{
       $(".button-collapse").sideNav();
     })
+    
   }
 
   render() {
 
     return (
       <div>
+        {this.state.employee?(
+            <Redirect push to="/assets" />
+          ) :(
         <div className="masterComponentBackground">
           <div >
             <nav className="masterComponentNavigationBar">
@@ -36,20 +52,24 @@ class Adminhomepage extends Component {
                   </form>
               </div>
               <ul id="slide-out" className="side-nav masterComponentSideBar">
-                <li className="masterComponentSideBarItem"><a href="#!">Assets</a></li>
+                <li className="masterComponentSideBarItem"onClick={this.handleEmployee}><a href="/assets">Assets</a></li>
                 <br />
-                <li className="masterComponentSideBarItem"><a href="#!">Consumables</a></li>
+                <li className="masterComponentSideBarItem" ><a href="#!">Consumables</a></li>
                 <br />
-                <li className="masterComponentSideBarItem"><a href="#!">Employee</a></li>
-                <br />
-                <li className="masterComponentSideBarItem"><a href="#!">History</a></li>
-                <br />
+                <li className="masterComponentSideBarItem" ><a href="#!">Employee</a></li>
               </ul>      
             </nav>
           </div>
         </div>
-      </div>
-    );
+      )
+    }
+    </div>
+  );
+  }
+  handleEmployee(){
+    this.setState({
+      employee: true
+    })
   }
 }
 
