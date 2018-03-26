@@ -34,7 +34,7 @@ class Adminhomepage extends Component {
     return (
       <div>
         {this.state.employee?(
-            <Redirect push to="/assets" />
+            <Redirect push to="/employee" />
           ) :(
         <div className="masterComponentBackground">
           <div >
@@ -52,11 +52,11 @@ class Adminhomepage extends Component {
                   </form>
               </div>
               <ul id="slide-out" className="side-nav masterComponentSideBar">
-                <li className="masterComponentSideBarItem"onClick={this.handleEmployee}><a href="/assets">Assets</a></li>
+                <li className="masterComponentSideBarItem"><a href="/assets">Assets</a></li>
                 <br />
                 <li className="masterComponentSideBarItem" ><a href="#!">Consumables</a></li>
                 <br />
-                <li className="masterComponentSideBarItem" ><a href="#!">Employee</a></li>
+                <li className="masterComponentSideBarItem" ><a onClick={this.handleEmployee}href="/employee">Employee</a></li>
               </ul>      
             </nav>
           </div>

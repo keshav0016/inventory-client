@@ -1,13 +1,17 @@
 import React, {Component} from 'react';
 import axios from 'axios'
-
+import {
+    Redirect
+  } from 'react-router-dom';
 class Assets extends Component{
     constructor(props){
         super(props)
         this.state = {
-            data:[]
+            data:[],
+            add: false
         }
         this.handleList = this.handleList.bind(this)
+        this.handleAdd = this.handleAdd.bind(this)
     }
     componentWillMount(){
         this.handleList()
@@ -19,18 +23,24 @@ class Assets extends Component{
             withCredentials: true
         })
         .then((res)=>{
-            if(res.data.message === 'assets'){
-                this.setState({
-                    data: res.data.assets
-                })
+            this.setState({
+                data: res.data.assets
+            })
                 
-            }else{
-                alert('assets not found')
-            }
+           
         })
+    }
+    handleAdd(){
+      this.setState({
+          add: true
+      })
     }
     render(){
         return(
+            <div>
+            {this.state.add?(<Redirect push to='/assets/add'/>):(
+
+          
             <div class='assets'>
             <div class='centered'>
               <table class='bordered '>
@@ -68,14 +78,11 @@ class Assets extends Component{
                   <td ><a class='dropdown-trigger btn-mini' href='#' data-target='dropdown1'><i class="material-icons">more_vert</i></a>
 
                     <ul id='dropdown1' class='dropdown-content'>
-                    <li><a href="#!">update</a></li>
+                    <li><a href="/assets/update">update</a></li>
                     <li><a href="#!">delete</a></li>
                     <li><a href="#!">history</a></li>
                     
-                    </ul>
-              
-                      
-                          
+                    </ul>     
                   </td>
                 </tr>
                 )
@@ -86,6 +93,8 @@ class Assets extends Component{
               
             </div >
             
+            </div>
+              )}
             </div>
         )
     }
